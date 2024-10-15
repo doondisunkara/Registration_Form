@@ -5,12 +5,24 @@ class RegistrationForm extends Component {
   state = {
     firstName: '',
     lastName: '',
+    firstNameBlurStatus: false,
+    lastNameBlurStatus: false,
     submitStatus: false,
   }
 
   onSubmitForm = event => {
     event.preventDefault()
-    this.setState({firstName: '', lastName: '', submitStatus: true})
+    const {firstName, lastName} = this.state
+    const newFirstName = firstName === ''
+    const newLastName = lastName === ''
+    if (newFirstName || newLastName) {
+      this.setState({
+        firstNameBlurStatus: newFirstName,
+        lastNameBlurStatus: newLastName,
+      })
+    } else {
+      this.setState({firstName: '', lastName: '', submitStatus: true})
+    }
   }
 
   onChangeFirstName = event => {
@@ -21,6 +33,14 @@ class RegistrationForm extends Component {
     this.setState({lastName: event.target.value})
   }
 
+  onBlurFirstName = event => {
+    this.setState({firstNameBlurStatus: event.target.value === ''})
+  }
+
+  onBlurLastName = event => {
+    this.setState({lastNameBlurStatus: event.target.value === ''})
+  }
+
   onClickAnotherResponse = () => {
     this.setState({
       submitStatus: false,
@@ -28,7 +48,19 @@ class RegistrationForm extends Component {
   }
 
   renderRegistrationForm = () => {
-    const {firstName, lastName} = this.state
+    const {
+      firstName,
+      lastName,
+      firstNameBlurStatus,
+      lastNameBlurStatus,
+    } = this.state
+    const firstNameInputClass = `input-fields ${
+      firstNameBlurStatus ? 'with-blur' : 'without-blur'
+    }`
+    const lastNameInputClass = `input-fields ${
+      lastNameBlurStatus ? 'with-blur' : 'without-blur'
+    }`
+
     return (
       <form className="registration-form" onSubmit={this.onSubmitForm}>
         <label htmlFor="firstName" className="labels">
@@ -37,22 +69,26 @@ class RegistrationForm extends Component {
         <input
           type="text"
           id="firstName"
-          className="input-fields"
+          className={firstNameInputClass}
           placeholder="First name"
           value={firstName}
           onChange={this.onChangeFirstName}
+          onBlur={this.onBlurFirstName}
         />
+        {firstNameBlurStatus && <p className="required">Required</p>}
         <label htmlFor="lastName" className="labels">
           LAST NAME
         </label>
         <input
           type="text"
           id="lastName"
-          className="input-fields"
+          className={lastNameInputClass}
           placeholder="Last name"
           value={lastName}
           onChange={this.onChangeLastName}
+          onBlur={this.onBlurLastName}
         />
+        {lastNameBlurStatus && <p className="required">Required</p>}
         <button type="submit" className="submit-btn">
           Submit
         </button>
@@ -83,7 +119,7 @@ class RegistrationForm extends Component {
     return (
       <div className="registration-bg-container">
         <div className="registration-container">
-          <h1 className="main-heading">Registration Form</h1>
+          <h1 className="main-heading">Registration</h1>
           {submitStatus
             ? this.renderSubmittedWindow()
             : this.renderRegistrationForm()}

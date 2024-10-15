@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
+  padding: 30px;
 }
 
 .registration-container {
@@ -11,6 +12,13 @@
   align-items: center;
   margin-top: 100px;
   margin-bottom: 100px;
+  width: 800px;
+}
+
+@media screen and (max-width: 767px) {
+  .registration-container {
+    width: 100%;
+  }
 }
 
 .main-heading {
@@ -27,27 +35,46 @@
   border-radius: 15px;
   box-shadow: 0px 4px 16px 0px #bfbfbf;
   padding: 50px;
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .labels {
   color: #475569;
   font-family: 'Roboto';
-  font-size: 24px;
+  font-size: 14px;
   font-weight: 600;
   margin-top: 20px;
 }
 
 .input-fields {
-  color: #cbd2d9;
   font-family: 'Roboto';
   font-size: 18px;
   font-weight: 500;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.without-blur {
+  color: #cbd2d9;
   border: 1px solid #cbd2d9;
   border-radius: 5px;
   padding: 8px 16px 8px 16px;
-  cursor: pointer;
-  margin-top: 10px;
+}
+
+.with-blur {
+  border: 1px solid #ff0b37;
+  background-color: #fef2f4;
+  border-radius: 5px;
+  padding: 8px 16px 8px 16px;
+}
+
+.required {
+  color: #ff0b37;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 0px;
 }
 
 .submit-btn {
@@ -64,6 +91,12 @@
   margin-top: 20px;
 }
 
+@media screen and (max-width: 767px) {
+  .submit-btn {
+    align-self: stretch;
+  }
+}
+
 .submitted-window {
   display: flex;
   flex-direction: column;
@@ -74,7 +107,7 @@
 .success-msg {
   color: #475569;
   font-family: 'Roboto';
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   margin-top: 20px;
 }
